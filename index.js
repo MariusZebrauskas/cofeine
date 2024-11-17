@@ -32,7 +32,7 @@ async function callWebsite(url) {
   }
 }
 
-// Schedule the job to call each website every 10 seconds
+// Schedule the job to call each website every 1 minutes
 const job = schedule.scheduleJob("*/10 * * * * *", async function () {
   console.log("Scheduled job executed at:", new Date());
   for (const url of websites) {
@@ -50,6 +50,8 @@ console.log("starting");
 
 // Corrected GET handler for '/ping' route
 app.get("/ping", (req, res) => {
+  res.status(200).send("Hello World");
+  res.send("pinged");
   res.status(200).send("Hello World");
 });
 
