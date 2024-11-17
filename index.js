@@ -51,8 +51,6 @@ console.log("starting");
 // Corrected GET handler for '/ping' route
 app.get("/ping", (req, res) => {
   res.status(200).send("Hello World");
-  res.send("pinged");
-  res.status(200).send("Hello World");
 });
 
 app.listen(PORT, () => {
