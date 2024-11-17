@@ -5,10 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Array of websites to call
-const websites = [
-  "https://porfolio-new-dabd3275f18f.herokuapp.com/ping",
-  "http://localhost:8800/ping",
-];
+const websites = ["https://porfolio-new-dabd3275f18f.herokuapp.com/ping"];
 
 // Function to call a website
 async function callWebsite(url) {
