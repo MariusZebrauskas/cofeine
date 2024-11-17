@@ -1,24 +1,36 @@
 const express = require("express");
-const schedule = require("node-schedule");
 const axios = require("axios");
-
+const schedule = require("node-schedule");
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-// Endpoint to be pinged
-app.get("/ping", (req, res) => {
-  console.log("Ping received at " + new Date().toISOString());
-  res.send("Pong");
+// Array of websites to call
+const websites = [
+  "https://porfolio-new-dabd3275f18f.herokuapp.com/ping",
+  "http://localhost:8800/ping",
+];
+
+// Function to call a website
+async function callWebsite(url) {
+  //please send schedulerUrl === PORT
+  try {
+    const response = await axios.get(url);
+    console.log(`Successfully called ${url}: Status ${response.status}`);
+  } catch (error) {
+    console.error(`Error calling ${url}: ${error}`);
+  }
+}
+
+// Schedule the job to call each website every 1 minutes
+const job = schedule.scheduleJob("*/01 * * * *", function () {
+  console.log("Scheduled job executed at:", new Date());
+  websites.forEach((url) => callWebsite(url));
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-  // Schedule a job to ping `/ping` every 5 minutes
-  schedule.scheduleJob("*/5 * * * *", function () {
-    console.log("Sending ping to self...");
-    axios
-      .get(`http://localhost:${port}/ping`)
-      .then((response) => console.log("Self ping successful:", response.data))
-      .catch((error) => console.log("Error pinging self:", error));
-  });
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
