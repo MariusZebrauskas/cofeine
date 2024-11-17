@@ -46,6 +46,7 @@ const job = schedule.scheduleJob("*/10 * * * * *", async function () {
     console.error("Error resetting clock:", error);
   }
 });
+console.log("starting");
 
 // Corrected GET handler for '/ping' route
 app.get("/ping", (req, res) => {
