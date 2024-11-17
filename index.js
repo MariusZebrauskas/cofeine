@@ -33,7 +33,7 @@ async function callWebsite(url) {
 }
 
 // Schedule the job to call each website every 1 minutes
-const job = schedule.scheduleJob("*/10 * * * * *", async function () {
+const job = schedule.scheduleJob("*/25 * * * *", async function () {
   console.log("Scheduled job executed at:", new Date());
   for (const url of websites) {
     await callWebsite(url);
@@ -46,7 +46,6 @@ const job = schedule.scheduleJob("*/10 * * * * *", async function () {
     console.error("Error resetting clock:", error);
   }
 });
-console.log("starting");
 
 // Corrected GET handler for '/ping' route
 app.get("/ping", (req, res) => {
