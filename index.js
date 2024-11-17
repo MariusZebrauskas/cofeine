@@ -14,7 +14,7 @@ const websites = [
 async function callWebsite(url) {
   //please send schedulerUrl === PORT
   try {
-    const response = await axios.get(url, {
+    const response = await axios.post(url, {
       schedulerUrl: "https://cofeine-af492e410cef.herokuapp.com/ping",
     });
     console.log(`Successfully called ${url}: Status ${response.status}`);
