@@ -14,7 +14,9 @@ const websites = [
 async function callWebsite(url) {
   //please send schedulerUrl === PORT
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      schedulerUrl: "https://cofeine-af492e410cef.herokuapp.com/ping",
+    });
     console.log(`Successfully called ${url}: Status ${response.status}`);
   } catch (error) {
     console.error(`Error calling ${url}: ${error}`);
@@ -27,8 +29,9 @@ const job = schedule.scheduleJob("*/01 * * * *", function () {
   websites.forEach((url) => callWebsite(url));
 });
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+app.get("/ping", (req, res) => {
+  res.send("pinged");
+  res.status(200).send("Pong");
 });
 
 app.listen(PORT, () => {
